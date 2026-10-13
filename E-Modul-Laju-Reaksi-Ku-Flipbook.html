@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>E-Modul Ajar Laju Reaksi-Ku (Flipbook)</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#10382A;--pg:#FFFDF7;--card:#fff;--ink:#14213D;--mut:#52607a;--g:#1F7A4D;--gl:#DDF1E4;--y:#FFC93C;--yl:#FFF1C2;--r:#C8412B;--rl:#FBE3DE;--line:#d5dfd8}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--pg:#16263d;--card:#1c2f4a;--ink:#EEF3F9;--mut:#a9b8cf;--g:#57C98A;--gl:#1d3d33;--yl:#4a3f1a;--rl:#4b2620;--line:#2f4566}}
+:root[data-theme="dark"]{--pg:#16263d;--card:#1c2f4a;--ink:#EEF3F9;--mut:#a9b8cf;--g:#57C98A;--gl:#1d3d33;--yl:#4a3f1a;--rl:#4b2620;--line:#2f4566}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.6 "Nunito Sans",system-ui,sans-serif;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px);display:flex;flex-direction:column;overflow:hidden}
+h1,h2,h3{font-family:"Baloo 2",system-ui,sans-serif;line-height:1.15;margin:.2em 0 .4em}h1{font-size:clamp(2.2rem,7vw,3.4rem);font-weight:800}h2{font-size:1.6rem}h3{font-size:1.15rem}
+.top{display:flex;align-items:center;gap:10px;padding:8px 14px;color:#fff}.top b{font:800 1rem "Baloo 2"}.bar{flex:1;height:8px;background:#ffffff33;border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--y);transition:width .5s}
+.xp{background:var(--y);color:#14213D;border-radius:20px;padding:1px 12px;font-weight:700;white-space:nowrap}
+.book{flex:1;min-height:0;perspective:1800px;position:relative;max-width:900px;width:100%;margin:0 auto;padding:0 10px}
+.pg{position:absolute;inset:0 10px;background:var(--pg);border-radius:6px 18px 18px 6px;box-shadow:0 10px 40px #0006,inset 10px 0 18px -10px #0003;overflow-y:auto;padding:22px 24px 40px;transform-origin:left center;transition:transform .8s cubic-bezier(.5,.1,.2,1),opacity .6s;backface-visibility:hidden}
+.pg.gone{transform:rotateY(-105deg);opacity:0;pointer-events:none}.pg.next{transform:translateX(3%) scale(.97);opacity:0;pointer-events:none}
+.pn{position:absolute;right:16px;bottom:8px;font-size:.8rem;color:var(--mut)}
+.ctl{display:flex;justify-content:center;align-items:center;gap:14px;padding:10px;color:#fff}
+.ctl button{border:0;border-radius:50%;width:46px;height:46px;font-size:1.3rem;background:var(--y);color:#14213D;cursor:pointer;box-shadow:0 3px 0 #b98a00}.ctl button:disabled{opacity:.35}
+button:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.cover{background:var(--g);color:#fff;display:flex;flex-direction:column;justify-content:center}.cover canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.45;pointer-events:none}.cover>*{position:relative}
+.btn{border:0;background:var(--y);color:#14213D;font:800 1.05rem "Baloo 2";border-radius:14px;padding:8px 22px;cursor:pointer;box-shadow:0 4px 0 #b98a00}.btn.s{background:var(--card);border:2px solid var(--g);color:var(--g);box-shadow:none}
+.card{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px 16px;margin:12px 0}
+.opt{display:block;width:100%;text-align:left;margin:7px 0;padding:10px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);font:600 1rem "Nunito Sans";cursor:pointer}.opt:hover{border-color:var(--g)}.opt.right{background:var(--gl);border-color:var(--g)}.opt.wrong{background:var(--rl);border-color:var(--r)}
+.fb{margin-top:6px;padding:9px 13px;border-radius:12px;background:var(--yl);display:none}.fb.show{display:block}
+canvas.sim{width:100%;height:250px;border-radius:14px;background:#0e2a3a;display:block}
+.stat{display:flex;gap:10px;margin:8px 0}.stat div{flex:1;background:var(--gl);border-radius:12px;padding:6px 12px}.stat b{font:800 1.5rem "Baloo 2";display:block;color:var(--g)}
+label{display:block;font-weight:700;margin-top:8px}input[type=range]{width:100%;accent-color:var(--g)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}.tabs .opt{width:auto;margin:0;padding:5px 14px}
+.tri{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:10px}.tri div{padding:10px;border-radius:12px;background:var(--gl)}.tri div:nth-child(2){background:var(--yl)}.tri div:nth-child(3){background:var(--rl)}.tri b{display:block}
+table{width:100%;border-collapse:collapse;font-size:.92rem}td,th{border:2px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top}th{background:var(--gl)}
+textarea{width:100%;min-height:80px;border-radius:12px;border:2px solid var(--line);padding:10px;background:var(--card);color:var(--ink);font:inherit}
+details{background:var(--yl);border-radius:12px;padding:6px 12px;margin:12px 0;font-size:.93rem}summary{cursor:pointer;font-weight:700}
+svg text{fill:var(--ink);font:12px "Nunito Sans"}.note{font-size:.9rem;color:var(--mut)}.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px}.toc button{text-align:left}
+@media(prefers-reduced-motion:reduce){.pg{transition:none}}
+</style>
+</head>
+<body>
+<div class="top"><b>Laju Reaksi-Ku</b><div class="bar"><i id="pb"></i></div><span class="xp"><span id="xp">0</span> poin</span></div>
+<div class="book" id="book">
+
+<article class="pg cover"><canvas id="hc" aria-hidden="true"></canvas>
+<p>E-modul ajar kimia kelas XI (Fase F)</p><h1>Laju Reaksi-Ku</h1><h2>Belajar laju reaksi lewat fermentasi tape</h2>
+<p>Terintegrasi TPACK, etnokimia Sasambo, dan Education for Sustainable Development (ESD)</p>
+<p><button class="btn" data-go="1">Buka buku</button></p>
+<p class="note" style="color:#DDF1E4">Kelompok D · Pendidikan Kimia FKIP Universitas Mataram · 2026. Geser layar, tekan panah, atau pakai tombol di bawah untuk membalik halaman.</p></article>
+
+<article class="pg"><h2>Petunjuk dan daftar isi</h2>
+<p>Modul ini untuk 2 × 45 menit, paling seru berpasangan. Setiap halaman punya satu tugas. Kerjakan berurutan atau loncat lewat daftar di bawah. Kotak kuning <em>Catatan guru</em> menjelaskan rancangan pedagogisnya.</p>
+<div class="toc" id="toc"></div>
+<details><summary>Catatan guru: alur pembelajaran</summary>Orientasi masalah (hal. 3 dan 4), eksplorasi konteks (5), konstruksi konsep (6 dan 7), pemecahan masalah (8 dan 9), uji diri dan asesmen (10 dan 11), refleksi (12). Rincian peta TPACK dan rubrik ada di halaman 11.</details></article>
+
+<article class="pg"><h2>Tujuan belajar</h2>
+<div class="card"><p>Di akhir modul, kamu mampu:</p><ol><li>menjelaskan pengaruh konsentrasi, luas permukaan, suhu, dan katalis terhadap laju reaksi berdasarkan data tape (C4);</li><li>menghubungkan yang terlihat pada tape dengan tumbukan partikel (C4);</li><li>menafsirkan dan menyusun grafik konsentrasi–waktu (C5);</li><li>mengevaluasi cara mengendalikan fermentasi tape dan menyusun rekomendasi dengan mempertimbangkan lingkungan, sosial-budaya, dan ekonomi (C5).</li></ol></div>
+<h3>Salah kaprah yang akan kita luruskan</h3>
+<ul><li>Katalis “habis bereaksi”.</li><li>Suhu hanya membuat partikel bergerak, padahal juga menambah tumbukan yang cukup energi.</li><li>Makin panas pasti makin cepat matang. Pada tape, suhu terlalu tinggi merusak ragi dan enzim.</li><li>Ragi makin banyak pasti makin baik. Berlebih dapat menurunkan mutu (Maida &amp; Mustakim, 2025).</li></ul>
+<details><summary>Catatan guru: CP dan CK</summary>Mendukung CP Kimia Fase F (Kepka BSKAP 032/H/KR/2024, diperbarui 046/H/KR/2025): menganalisis faktor-faktor yang memengaruhi laju reaksi. Ruang lingkup tidak mencakup orde reaksi.</details></article>
+
+<article class="pg"><h2>Tebak dulu, jangan takut salah</h2>
+<div class="card"><p>Dua toples singkong beragi: satu di meja dapur, satu di kulkas. Tiga hari kemudian yang di dapur sudah lunak dan manis, yang di kulkas masih keras. Apa penyebab utamanya?</p><div id="q1"></div></div>
+<p class="note">Fermentasi tape berlangsung dua tahap: pati dipecah menjadi gula, lalu khamir mengubah gula menjadi etanol dan CO₂. pH turun karena terbentuk asam organik, dan aktivitas mikroba melambat setelah waktu tertentu (Maida &amp; Mustakim, 2025).</p>
+<details><summary>Catatan guru: POE</summary>Tahap Prediksi pada POE. Pilihan jawaban memunculkan pertanyaan penuntun, bukan jawaban langsung.</details></article>
+
+<article class="pg"><h2>Misi: tape dan pengetahuan masyarakat</h2>
+<p>Tape dikenal luas di Indonesia, termasuk di Nusa Tenggara Barat. Apakah tape punya tempat khusus dalam budaya Sasak, Samawa, atau Mbojo? <b>Kami belum menemukan dokumentasi yang bisa ditelusuri</b>, jadi jangan menganggapnya sudah pasti. Tugasmu seperti peneliti kecil: cari tahu dari pembuat tape di sekitarmu.</p>
+<div class="card"><h3>Pilah tiga lapis pengetahuan</h3><p class="note">Ibu pembuat tape adalah sumber pengetahuan komunitas. Ilmuwan memberi penjelasan ilmiah. Buku kimia memberi konsep sekolah. Ketiganya tidak sama dan tidak saling merendahkan.</p>
+<div id="m1"></div><div id="m2"></div><div id="m3"></div></div>
+<div class="card"><h3>Daftar wawancara (dengan izin narasumber)</h3><ul><li>Minta izin dulu, dan tanyakan boleh dicantumkan nama atau tidak.</li><li>Apa bahan dan ragi yang dipakai? Pembungkusnya apa?</li><li>Berapa lama diperam? Apa tanda tape sudah matang?</li><li>Apa istilah setempat untuk bagian-bagiannya? Tulis persis, jangan diganti.</li><li>Pernahkah tape gagal atau terbuang? Apa penyebabnya menurut beliau?</li></ul><p class="note">Jawaban narasumber tidak disimpan dalam modul ini.</p></div>
+<details><summary>Catatan guru: etnokimia dan etika</summary>Pembelajaran etnokimia Sasambo di Lombok mulai dikembangkan untuk guru kimia (Andayani et al., 2025). Validasi konteks (wawancara, telaah literatur, telaah guru) wajib dilakukan sebelum memberi label “Sasambo”. Hindari generalisasi ke seluruh suku dan klaim kesehatan.</details></article>
+
+<article class="pg"><h2>Masuk ke dunia partikel</h2>
+<p>Titik-titik mewakili partikel pereaksi. Kilatan kuning adalah tumbukan yang cukup energi untuk bereaksi. Geser slider dan amati angkanya.</p>
+<canvas class="sim" id="sim" aria-label="Simulasi partikel bertumbukan"></canvas>
+<div class="stat"><div><b id="c1">0</b>tumbukan per detik</div><div><b id="c2">0</b>tumbukan efektif per detik</div></div>
+<label for="n">Jumlah partikel (konsentrasi): <span id="nv">40</span></label><input type="range" id="n" min="10" max="90" value="40">
+<label for="t">Suhu: <span id="tv">30</span> °C</label><input type="range" id="t" min="5" max="60" value="30">
+<p class="note" id="warn"></p>
+<details><summary>Catatan guru: TCK dan TPK</summary>Teknologi merepresentasikan tumbukan yang tak kasatmata (TCK) dan memberi umpan balik langsung lewat angka yang berubah saat slider digeser (TPK). Ajak siswa menebak sebelum menggeser.</details></article>
+
+<article class="pg"><h2>Satu peristiwa, tiga cara melihat</h2>
+<p>Pilih faktor, lalu baca tiga kolom: yang terlihat di tape, yang terjadi pada partikel, dan simbolnya.</p>
+<div class="tabs" id="ft"></div><div class="tri" id="tri"></div>
+<div class="card"><h3>Batas model</h3><p>Model tumbukan menjelaskan kenapa 30 °C lebih cepat dari 15 °C. Tapi di 60 °C tape gagal karena ragi dan enzim, yang berupa makhluk hidup dan protein, rusak. Sains yang baik tahu batas modelnya.</p></div>
+<details><summary>Catatan guru: PCK</summary>Konsep disajikan dari fenomena konkret, ke partikel, lalu ke simbol, sehingga tiga level representasi kimia terhubung dalam satu alur.</details></article>
+
+<article class="pg"><h2>Membaca kurva: laju itu kemiringan</h2>
+<div class="card"><p>Kadar gula yang tersisa turun terhadap waktu. Jika suhu naik dari 25 °C ke 35 °C (masih aman bagi ragi), kurvanya...</p><div id="q4"></div></div>
+<svg id="gr" viewBox="0 0 400 220" width="100%" role="img" aria-label="Grafik gula tersisa terhadap waktu pada 25 dan 35 derajat"></svg>
+<div class="card"><p>Pada kurva 25 °C, kapan laju paling besar?</p><div id="q4b"></div></div>
+<p class="note">Data ilustrasi untuk latihan membaca kurva, bukan hasil pengukuran.</p></article>
+
+<article class="pg"><h2>Kamu yang memutuskan</h2>
+<div class="card"><p>Bu Yati (tokoh rekaan) menjual tape di pasar. Sering ada yang terlalu masam sehingga tidak laku dan terbuang. Data berikut ilustrasi.</p>
+<table><tr><th>Cara</th><th>Yang terjadi</th></tr><tr><td>A. Tempat teduh ±28 °C, singkong dibelah, ragi secukupnya</td><td>Matang 2–3 hari, hasil mirip tiap batch</td></tr><tr><td>B. Dekat kompor ±45 °C</td><td>Hasil berubah-ubah, sebagian gagal</td></tr><tr><td>C. Ragi dua kali lipat</td><td>Cepat manis, cepat masam, alkohol kuat</td></tr></table>
+<div id="q5"></div>
+<label for="rk">Tulis sarannya: sebut konsep kimia, satu risiko, dan siapa yang diuntungkan.</label><textarea id="rk"></textarea>
+<p><button class="btn" id="d5">Kirim saran</button></p></div>
+<div class="card"><h3>Tiga dimensi keberlanjutan</h3><p><b>Lingkungan:</b> mengurangi pangan terbuang (SDG 12). <b>Sosial-budaya:</b> menghargai pengetahuan pembuat tape. <b>Ekonomi:</b> mutu konsisten bagi usaha rumahan.</p></div>
+<details><summary>Catatan guru: ESD</summary>Keberlanjutan menjadi bagian inti tugas, bukan tambahan (Eilks &amp; Linkwitz, 2022). Klaim dibatasi pada pengurangan pangan terbuang skala rumah tangga, bukan ketahanan pangan.</details></article>
+
+<article class="pg"><h2>Uji dirimu</h2><div id="quiz"></div><div class="card" id="res" style="display:none"></div></article>
+
+<article class="pg"><h2>Catatan guru: peta TPACK dan asesmen</h2>
+<table><tr><th>Komponen</th><th>Keputusan desain</th></tr>
+<tr><td>CK</td><td>Faktor laju, teori tumbukan kualitatif, grafik konsentrasi–waktu</td></tr>
+<tr><td>PK</td><td>POE, pertanyaan penuntun, kerja berpasangan, studi kasus</td></tr>
+<tr><td>TK</td><td>HTML5 tanpa instalasi, dapat dipakai luring setelah diunduh</td></tr>
+<tr><td>PCK</td><td>Makro, submikro, lalu simbol; batas model disebutkan</td></tr>
+<tr><td>TCK</td><td>Simulasi partikel dan grafik interaktif</td></tr>
+<tr><td>TPK</td><td>Umpan balik langsung, kuis dengan tautan balik</td></tr>
+<tr><td>TPACK</td><td>Simulasi dipakai untuk memprediksi, menjelaskan, lalu memutuskan</td></tr></table>
+<h3>Asesmen</h3><p>Formatif: umpan balik tiap halaman dan hasil pilah tiga lapis. Sumatif: kuis 5 soal (skor otomatis) dan rekomendasi untuk Bu Yati. Rubrik rekomendasi (skor 1–4): ketepatan konsep, penggunaan data, pertimbangan risiko, pertimbangan tiga dimensi keberlanjutan.</p>
+<h3>Keselamatan</h3><p>Tape mengandung etanol dan singkong mentah mengandung senyawa sianogenik. Modul tidak menganjurkan konsumsi. Praktik nyata bersifat opsional di bawah arahan guru.</p></article>
+
+<article class="pg"><h2>Refleksi dan rujukan</h2>
+<div class="card"><p>Tulis dua kalimat: satu hal yang berubah dari dugaan awalmu, dan satu tindakan kecil yang bisa kamu lakukan agar makanan di rumah tidak terbuang.</p><textarea aria-label="Refleksi"></textarea></div>
+<h3>Rujukan</h3><p class="note">Andayani, Y., et al. (2025). Sosialisasi penerapan bahan ajar kimia berbasis etnokimia Sasambo pada guru SMA di Lombok Timur. <i>Jurnal Pengabdian Magister Pendidikan IPA</i>. · Eilks, I., &amp; Linkwitz, M. (2022). Greening the chemistry curriculum... <i>Current Opinion in Green and Sustainable Chemistry, 37</i>, 100662. · Maida, F. P., &amp; Mustakim, A. (2025). <i>Polygon, 3</i>(5), 27–35. · Ramli, M., et al. (2022). <i>Kimia untuk SMA/MA kelas XI</i>. Kemendikbudristek. · Badan Standar, Kurikulum, dan Asesmen Pendidikan (2024, 2025). Kepka No. 032/H/KR/2024 dan 046/H/KR/2025.</p>
+<p class="note">Ilustrasi, simulasi, dan data dibuat sendiri oleh kelompok. Konteks Sasambo masih menunggu validasi narasumber.</p></article>
+</div>
+<div class="ctl"><button id="pv" aria-label="Halaman sebelumnya">‹</button><span id="pi"></span><button id="nx" aria-label="Halaman berikutnya">›</button></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const pgs=$$(".pg"),NM=["Sampul","Petunjuk","Tujuan","Tebak","Misi budaya","Partikel","Faktor","Kurva","Keputusan","Uji diri","Catatan guru","Refleksi"];
+let cur=0,xp=0,done=new Set();
+function pts(n,k){if(done.has(k))return;done.add(k);xp+=n;$("#xp").textContent=xp;$("#pb").style.width=Math.min(100,done.size/9*100)+"%"}
+function show(i){cur=Math.max(0,Math.min(pgs.length-1,i));pgs.forEach((p,j)=>{p.className=p.className.replace(/ ?(gone|next)/g,"");if(j<cur)p.classList.add("gone");if(j>cur)p.classList.add("next");if(j==cur)p.scrollTop=0});
+$("#pi").textContent=(cur+1)+" / "+pgs.length+" · "+NM[cur];$("#pv").disabled=!cur;$("#nx").disabled=cur==pgs.length-1;pgs.forEach((p,j)=>{if(!p.querySelector(".pn")){const s=document.createElement("span");s.className="pn";s.textContent=j+1;p.appendChild(s)}})}
+$("#pv").onclick=()=>show(cur-1);$("#nx").onclick=()=>show(cur+1);
+addEventListener("keydown",e=>{if(e.key=="ArrowRight")show(cur+1);if(e.key=="ArrowLeft")show(cur-1)});
+let sx=0;$("#book").addEventListener("touchstart",e=>sx=e.touches[0].clientX,{passive:true});$("#book").addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>70&&!e.target.closest("input,canvas"))show(cur+(d<0?1:-1))});
+document.addEventListener("click",e=>{const g=e.target.closest("[data-go]");if(g)show(+g.dataset.go)});
+$("#toc").innerHTML=NM.map((n,i)=>i>1?`<button class="opt" data-go="${i}">${i+1}. ${n}</button>`:"").join("");
+function choice(box,opts,right,expl,ok,q){const b=$(box);b.insertAdjacentHTML("beforeend",(q?`<p><b>${q}</b></p>`:"")+opts.map(o=>`<button class="opt">${o}</button>`).join("")+'<div class="fb"></div>');
+const bs=[...b.querySelectorAll(".opt")],f=b.querySelector(".fb");bs.forEach((el,i)=>el.onclick=()=>{bs.forEach(x=>x.classList.remove("wrong"));f.classList.add("show");if(i==right){el.classList.add("right");f.innerHTML="<b>Tepat.</b> "+expl[i];ok&&ok()}else{el.classList.add("wrong");f.innerHTML=expl[i]}})}
+choice("#q1",["Jamur di kulkas malas bekerja","Di tempat hangat, reaksi dalam tape berjalan lebih cepat","Di dapur ada lebih banyak oksigen sehingga gula bertambah"],1,["Jamur bukan malas. Cari penyebab yang bisa dijelaskan lewat gerak partikel.","Dugaan kuat. Halaman 6 akan membuktikannya: apa yang berubah pada partikel saat hangat?","Gula terbentuk dari pati, bukan dari oksigen. Coba dugaan lain."],()=>pts(10,"q1"));
+const L3=["Pengetahuan komunitas","Penjelasan ilmiah","Konsep kimia sekolah"];
+choice("#m1",L3,0,["Tepat. Ini kata pembuat tape berdasarkan pengalaman, dan harus dihormati apa adanya.","Ini bukan penjelasan ilmiah, tapi cerita pengalaman komunitas.","Bukan konsep di buku pelajaran."],()=>pts(5,"m1"),"“Tape harus dibungkus daun supaya matang bagus,” kata Ibu pembuat tape.");
+choice("#m2",L3,1,["Ini temuan penelitian, bukan sekadar pengalaman.","Tepat. Pati dipecah mikroba menjadi gula, lalu khamir menghasilkan etanol dan CO₂.","Ini lebih spesifik daripada konsep umum di buku sekolah."],()=>pts(5,"m2"),"“Khamir mengubah gula menjadi etanol dan CO₂.”");
+choice("#m3",L3,2,["Bukan ucapan komunitas.","Bukan temuan penelitian khusus.","Tepat. Ini konsep yang kamu pelajari di kelas: suhu naik, tumbukan efektif bertambah."],()=>pts(5,"m3"),"“Suhu naik, tumbukan efektif bertambah, laju naik.”");
+/* simulasi */
+const cv=$("#sim"),cx=cv.getContext("2d"),D=devicePixelRatio||1;let P=[],ev=[],last=performance.now(),tc=0;
+function fit(){cv.width=cv.clientWidth*D||600;cv.height=250*D}fit();addEventListener("resize",fit);
+function setN(){const n=+$("#n").value;while(P.length<n)P.push({x:Math.random()*cv.width,y:Math.random()*cv.height,a:Math.random()*6.28});P.length=n}
+function step(now){requestAnimationFrame(step);if(cur!=5){last=now;return}if(cv.width<50)fit();const dt=Math.min(now-last,50);last=now,T=+$("#t").value;$("#nv").textContent=P.length;$("#tv").textContent=T;
+const sp=Math.sqrt((T+273)/303)*2.2*D,R=5*D,pe=Math.min(1,.35*Math.exp(1800/303-1800/(T+273)));cx.clearRect(0,0,cv.width,cv.height);
+P.forEach(p=>{p.x+=Math.cos(p.a)*sp*dt/16;p.y+=Math.sin(p.a)*sp*dt/16;if(p.x<0||p.x>cv.width){p.a=Math.PI-p.a;p.x=Math.max(0,Math.min(cv.width,p.x))}if(p.y<0||p.y>cv.height){p.a=-p.a;p.y=Math.max(0,Math.min(cv.height,p.y))}});
+for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){const a=P[i],b=P[j],dx=a.x-b.x,dy=a.y-b.y;if(dx*dx+dy*dy<4*R*R&&!(a.c>now-150&&b.c>now-150)){a.c=b.c=now;ev.push([now,0]);if(Math.random()<pe){ev.push([now,1]);a.f=b.f=now}const t=a.a;a.a=b.a+Math.random();b.a=t+Math.random()}}
+P.forEach(p=>{cx.beginPath();cx.arc(p.x,p.y,R,0,7);cx.fillStyle=p.f>now-180?"#FFC93C":"#7fd8ff";cx.fill()});
+ev=ev.filter(e=>now-e[0]<1000);$("#c1").textContent=ev.filter(e=>!e[1]).length;$("#c2").textContent=ev.filter(e=>e[1]).length;
+$("#warn").textContent=T>42?"Hati-hati: di tape sungguhan, ragi dan enzim mulai rusak pada suhu setinggi ini. Model ini tidak menghitungnya.":T<12?"Dingin sekali: partikel lambat, tumbukan efektif sedikit. Mirip isi kulkas.":"Coba: gandakan jumlah partikel, lalu naikkan suhu. Mana yang membuat tumbukan efektif lebih tinggi?"}
+["n","t"].forEach(i=>$("#"+i).oninput=()=>{setN();tc++;if(tc>5)pts(15,"sim")});setN();requestAnimationFrame(step);
+/* sampul */
+(()=>{const c=$("#hc"),x=c.getContext("2d");c.width=600;c.height=500;const q=[...Array(34)].map(()=>({x:Math.random()*600,y:Math.random()*500,a:Math.random()*6.28,r:3+Math.random()*6}));
+(function f(){x.clearRect(0,0,600,500);q.forEach(p=>{p.x=(p.x+Math.cos(p.a)*.6+600)%600;p.y=(p.y+Math.sin(p.a)*.6+500)%500;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fillStyle="#FFC93C";x.fill()});if(!matchMedia("(prefers-reduced-motion:reduce)").matches)requestAnimationFrame(f)})()})();
+/* faktor */
+const F={"Konsentrasi":["Ragi atau adonan lebih banyak: tape lebih cepat berubah (berlebih: cepat masam).","Partikel lebih rapat, tumbukan per detik naik.","Laju = k [A]ⁿ. [A] besar, laju besar."],"Luas permukaan":["Singkong dibelah cepat lunak.","Bidang sentuh lebih luas, lebih banyak partikel bisa ditabrak.","Luas total naik, laju naik."],"Suhu":["Dapur lebih cepat daripada kulkas, sampai batas ragi.","Partikel lebih cepat, lebih banyak tumbukan dengan energi ≥ Eₐ.","T naik, k naik."],"Katalis":["Enzim amilase mempercepat pemecahan pati.","Jalur dengan Eₐ lebih rendah, katalis dilepas dan dipakai lagi.","Eₐ turun, hasil akhir sama."]};let seen=new Set();
+$("#ft").innerHTML=Object.keys(F).map(k=>`<button class="opt" data-f="${k}">${k}</button>`).join("");
+$("#ft").onclick=e=>{const k=e.target.dataset.f;if(!k)return;$$("#ft .opt").forEach(b=>b.classList.toggle("right",b.dataset.f==k));const v=F[k];$("#tri").innerHTML=`<div><b>Yang terlihat</b>${v[0]}</div><div><b>Pada partikel</b>${v[1]}</div><div><b>Simbol</b>${v[2]}</div>`;seen.add(k);if(seen.size==4)pts(15,"fak")};
+/* grafik */
+function gr(s){let h=`<line x1="40" y1="10" x2="40" y2="190" stroke="currentColor"/><line x1="40" y1="190" x2="390" y2="190" stroke="currentColor"/><text x="6" y="16">[gula]</text><text x="340" y="212">waktu</text>`;
+const c=(k,col)=>{let d="";for(let t=0;t<=30;t++)d+=(t?"L":"M")+(40+t*11.6)+" "+(190-170*Math.exp(-k*t));return `<path d="${d}" fill="none" stroke="${col}" stroke-width="3"/>`};
+h+=c(.08,"#1F7A4D")+`<text x="230" y="110">25 °C</text>`;if(s)h+=c(.16,"#C8412B")+`<text x="90" y="150">35 °C</text>`;$("#gr").innerHTML=h}gr(0);
+choice("#q4",["Lebih landai dari kurva 25 °C","Lebih curam dari kurva 25 °C","Sama saja karena zat awalnya sama"],1,["Landai berarti reaksi lebih lambat. Ingat gerak partikel saat hangat.","Kurva merah menunjukkannya: gula habis lebih cepat karena tumbukan efektif lebih banyak.","Zat awal sama, tapi laju juga bergantung pada suhu."],()=>{gr(1);pts(10,"g1")});
+choice("#q4b",["Di awal, kurva paling curam","Di tengah, kurva paling lurus","Di akhir, kurva mendatar"],0,["Tepat. Laju sama dengan kemiringan. Di awal konsentrasi terbesar dan kurva paling curam.","Kemiringan di tengah sudah berkurang karena konsentrasi terus turun.","Mendatar berarti laju hampir nol."],()=>pts(10,"g2"));
+/* keputusan */
+choice("#q5",["A. Tempat teduh, dibelah, ragi secukupnya","B. Dekat kompor","C. Ragi dua kali lipat"],0,["Masuk akal: suhu stabil dan sedang, ukuran seragam, ragi tidak berlebih. Sekarang tulis alasannya.","B berisiko: suhu terlalu tinggi dapat merusak ragi dan enzim.","C cepat manis, tapi ragi berlebih membuat cepat masam dan beralkohol kuat."],null,"Pilih satu cara:");
+$("#d5").onclick=()=>{if($("#rk").value.trim().length<40){alert("Tulis sedikit lebih lengkap: konsepnya, satu risiko, dan siapa yang diuntungkan.");return}pts(25,"kep");$("#d5").textContent="Terkirim ✓"};
+/* kuis */
+const Q=[["Tape di 30 °C lebih cepat matang daripada di 10 °C. Penjelasan partikel yang tepat?",["Partikel lebih besar","Lebih banyak tumbukan dengan energi ≥ Eₐ","Ragi bertambah zat kimianya"],1,6],["Singkong dibelah lebih cepat lunak karena...",["Luas bidang sentuh dengan ragi bertambah","Suhu singkong naik sendiri","Energi aktivasi turun"],0,6],["Enzim pada ragi sebagai katalis:",["Ikut habis menjadi produk","Menurunkan Eₐ dan tidak habis","Menaikkan hasil akhir"],1,6],["Kurva konsentrasi pereaksi makin landai berarti...",["Laju makin kecil","Laju makin besar","Laju tetap"],0,7],["Tape di 60 °C gagal. Kenapa model tumbukan saja tidak cukup?",["Tumbukan tidak terjadi","Ragi dan enzim rusak, ada faktor biologis","Konsentrasi otomatis nol"],1,6]];
+let sc=0,an=0,wr=new Set();
+$("#quiz").innerHTML=Q.map((q,i)=>`<div class="card"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<button class="opt" data-q="${i}" data-o="${j}">${o}</button>`).join("")}</div>`).join("");
+$("#quiz").onclick=e=>{const b=e.target.closest("[data-q]");if(!b||b.parentNode.dataset.d)return;const i=+b.dataset.q,ok=+b.dataset.o==Q[i][2];b.parentNode.dataset.d=1;b.classList.add(ok?"right":"wrong");
+if(!ok){b.parentNode.querySelector(`[data-o="${Q[i][2]}"]`).classList.add("right");wr.add(Q[i][3])}else sc++;
+if(++an==5){const r=$("#res"),s=sc*20;r.style.display="block";r.innerHTML=`<h3>Skor kamu: ${s}/100</h3><p>${s==100?"Luar biasa. Kamu siap berpikir seperti ilmuwan pangan.":s>=60?"Bagus, sedikit lagi mantap.":"Ini titik awal yang baik."}</p>`+(wr.size?`<p>Ulangi halaman: ${[...wr].map(k=>`<button class="btn s" data-go="${k}">${k+1}. ${NM[k]}</button>`).join(" ")}</p>`:"");pts(s/2,"quiz")}};
+show(0);
+</script>
+</body>
+</html>
